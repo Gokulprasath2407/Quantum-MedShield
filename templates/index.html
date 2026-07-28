@@ -1,0 +1,1036 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="row mb-4">
+
+    <div class="col-lg-12">
+
+        <div class="hero shadow">
+
+            <h1>
+                <i class="bi bi-shield-lock-fill"></i>
+                QuantumShield MedEdge
+            </h1>
+
+            <p class="lead">
+                BB84 Quantum Key Distribution Security Dashboard
+            </p>
+
+            <p>
+                Simulating secure quantum communication with
+                Eve attack detection using the BB84 protocol.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Metric Cards -->
+<div class="row g-4 mb-4">
+
+   <div class="col-md-3">
+
+        <div class="card metric-card shadow">
+
+            <div class="card-body text-center">
+
+                {% if critical %}
+
+                    <div class="display-3 text-danger">
+
+                        <i class="bi bi-speedometer2"></i>
+
+                    </div>
+
+                    <span class="badge bg-danger mb-2">
+
+                        Critical
+
+                    </span>
+
+                {% elif warning %}
+
+                    <div class="display-3 text-warning">
+
+                        <i class="bi bi-speedometer2"></i>
+
+                    </div>
+
+                    <span class="badge bg-warning text-dark mb-2">
+
+                        Warning
+
+                    </span>
+
+                {% else %}
+
+                    <div class="display-3 text-success">
+
+                        <i class="bi bi-speedometer2"></i>
+
+                    </div>
+
+                    <span class="badge bg-success mb-2">
+
+                        Secure
+
+                    </span>
+
+                {% endif %}
+
+                <h6 class="mt-2">
+
+                    Average QBER
+
+                </h6>
+
+                <h2 class="fw-bold">
+
+                    {{ qber_percent }}%
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card metric-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-shield-check metric-icon"></i>
+
+                <h6 class="mt-3">Secure Runs</h6>
+
+                <h3>{{ secure_runs }}</h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card metric-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-bug metric-icon"></i>
+
+                <h6 class="mt-3">Attack Runs</h6>
+
+                <h3>{{ attack_runs }}</h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card metric-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-bar-chart metric-icon"></i>
+
+                <h6 class="mt-3">Total Runs</h6>
+
+                <h3>{{ total_runs }}</h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Control Panel -->
+<div class="card shadow mb-4">
+
+    <div class="card-header">
+
+        <h4>
+
+            <i class="bi bi-sliders"></i>
+
+            Simulation Control
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+       <form method="POST">
+
+            <div class="row g-3">
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Simulation Count
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="runs"
+                        value="{{ total_runs }}"
+                        min="1"
+                        max="1000"
+                        required>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Security Threshold
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="threshold"
+                        value="0.11"
+                        step="0.01"
+                        min="0"
+                        max="1">
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <label class="form-label">
+                        Noise Probability
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        name="noise"
+                        value="0.05"
+                        step="0.01"
+                        min="0"
+                        max="1">
+
+                </div>
+
+                <div class="col-md-3 d-flex align-items-end">
+
+                    <button
+                        id="runBtn"
+                        class="btn btn-primary w-100"
+                        type="submit">
+
+                        <span id="btnText">
+                            <i class="bi bi-play-fill"></i>
+                            Run Simulation
+                        </span>
+
+                        <span
+                            id="loadingSpinner"
+                            class="spinner-border spinner-border-sm d-none"
+                            role="status"
+                            aria-hidden="true">
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+                <div class="col-md-3">
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="eve"
+                            name="eve"
+                            checked>
+
+                        <label class="form-check-label" for="eve">
+
+                            Enable Eve Attack
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="noise_enabled"
+                            name="noise_enabled">
+
+                        <label class="form-check-label" for="noise_enabled">
+
+                            Enable Quantum Noise
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 d-flex align-items-end justify-content-end">
+
+                    <a
+                        href="/download"
+                        class="btn btn-success">
+
+                        <i class="bi bi-download"></i>
+
+                        Download PDF
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- Quantum Communication Flow -->
+<div class="card shadow mb-4 quantum-flow-card">
+
+    <div class="card-header">
+        <h4>
+            <i class="bi bi-diagram-3-fill"></i>
+            Quantum Communication Flow
+        </h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center">
+
+            <!-- Alice -->
+            <div class="col-md-3">
+
+                <div class="quantum-node alice-node">
+
+                    <i class="bi bi-person-fill display-5"></i>
+
+                    <h5 class="mt-3">Alice</h5>
+
+                    <span class="badge bg-success">
+                        Sender
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- Channel -->
+
+            <div class="col-md-3">
+
+                <div class="quantum-channel">
+
+                    <div class="flow-line">
+
+                        <div class="flow-dot"></div>
+
+                    </div>
+
+                    <h6 class="mt-3">
+
+                        Quantum Channel
+
+                    </h6>
+
+                    {% if noise_enabled %}
+
+                    <span class="badge bg-warning text-dark">
+
+                        Noise Enabled
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-info">
+
+                        Secure Channel
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- Eve -->
+
+            <div class="col-md-3">
+
+                <div class="quantum-node eve-node">
+
+                    <i class="bi bi-bug-fill display-5"></i>
+
+                    <h5 class="mt-3">
+
+                        Eve
+
+                    </h5>
+
+                    {% if eve_enabled %}
+
+                    <span class="badge bg-danger">
+
+                        Intercepting
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-secondary">
+
+                        Disabled
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- Bob -->
+
+            <div class="col-md-3">
+
+                <div class="quantum-node bob-node">
+
+                    <i class="bi bi-person-check-fill display-5"></i>
+
+                    <h5 class="mt-3">
+
+                        Bob
+
+                    </h5>
+
+                    <span class="badge bg-success">
+
+                        Receiver
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <h6>Current QBER</h6>
+
+                <h3 class="text-primary">
+
+                    {{ qber_percent }}%
+
+                </h3>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h6>Security Threshold</h6>
+
+                <h3>
+
+                    {{ threshold }}%
+
+                </h3>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h6>Channel Status</h6>
+
+                {% if channel_secure %}
+
+                <span class="badge bg-success fs-6">
+
+                    SECURE
+
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-danger fs-6">
+
+                    ATTACK DETECTED
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h6>Final Key</h6>
+
+                {% if channel_secure %}
+
+                <span class="badge bg-success fs-6">
+
+                    ACCEPTED
+
+                </span>
+
+                {% else %}
+
+                <span class="badge bg-danger fs-6">
+
+                    REJECTED
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ============================= -->
+<!-- AI Threat Assessment -->
+<!-- ============================= -->
+
+<div class="row mb-4">
+
+    <!-- Threat Assessment -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header bg-dark text-white">
+
+                <h4>
+
+                    <i class="bi bi-shield-exclamation"></i>
+
+                    AI Threat Assessment
+
+                </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <h5>
+
+                    Current QBER
+
+                    <span class="float-end text-primary">
+
+                        {{ qber_percent }}%
+
+                    </span>
+
+                </h5>
+
+                <hr>
+
+                {% if critical %}
+
+                <div class="alert alert-danger">
+
+                    <h5>
+
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+
+                        Critical Risk
+
+                    </h5>
+
+                    <p>
+
+                        A high QBER indicates a strong possibility of an
+                        intercept-resend attack.
+
+                    </p>
+
+                    <ul>
+
+                        <li>Reject generated quantum key</li>
+
+                        <li>Restart BB84 session</li>
+
+                        <li>Notify network administrator</li>
+
+                    </ul>
+
+                </div>
+
+                {% elif warning %}
+
+                <div class="alert alert-warning">
+
+                    <h5>
+
+                        Warning
+
+                    </h5>
+
+                    <p>
+
+                        Elevated QBER detected.
+
+                        Investigate the communication channel.
+
+                    </p>
+
+                </div>
+
+                {% else %}
+
+                <div class="alert alert-success">
+
+                    <h5>
+
+                        Secure Communication
+
+                    </h5>
+
+                    <p>
+
+                        QBER is within the acceptable threshold.
+
+                        Generated key can be safely used.
+
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Transmission Summary -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0">
+
+            <div class="card-header bg-primary text-white">
+
+                <h4>
+
+                    <i class="bi bi-cpu-fill"></i>
+
+                    Transmission Summary
+
+                </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-striped align-middle">
+
+                    <tr>
+
+                        <th>Total Simulations</th>
+
+                        <td>{{ total_runs }}</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Secure Runs</th>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                {{ secure_runs }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Attack Runs</th>
+
+                        <td>
+
+                            <span class="badge bg-danger">
+
+                                {{ attack_runs }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Threshold</th>
+
+                        <td>
+
+                            {{ threshold }}%
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Noise Enabled</th>
+
+                        <td>
+
+                            {% if noise_enabled %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                YES
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-secondary">
+
+                                NO
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <th>Eve Attack</th>
+
+                        <td>
+
+                            {% if eve_enabled %}
+
+                            <span class="badge bg-danger">
+
+                                ENABLED
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-success">
+
+                                DISABLED
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ============================= -->
+<!-- Analytics Dashboard -->
+<!-- ============================= -->
+
+<div class="row g-4">
+
+    <!-- QBER Trend -->
+    <div class="col-lg-8">
+
+        <div class="card shadow border-0 graph-card h-100">
+
+            <div class="card-header bg-primary text-white">
+
+                <h5>
+
+                    <i class="bi bi-graph-up-arrow"></i>
+
+                    Live QBER Trend
+
+                </h5>
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/qber_plot.png') }}"
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- System Health -->
+
+    <div class="col-lg-4">
+
+        <div class="card shadow border-0 h-100">
+
+            <div class="card-header bg-success text-white">
+
+                <h5>
+
+                    <i class="bi bi-heart-pulse-fill"></i>
+
+                    System Health
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <strong>Quantum Channel</strong>
+
+                    <div class="progress mt-2">
+
+                        <div
+                            class="progress-bar bg-success"
+                            style="width:100%">
+
+                            Active
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <strong>Security Level</strong>
+
+                    <div class="progress mt-2">
+
+                        {% if critical %}
+
+                        <div
+                            class="progress-bar bg-danger"
+                            style="width:100%">
+
+                            Critical
+
+                        </div>
+
+                        {% elif warning %}
+
+                        <div
+                            class="progress-bar bg-warning"
+                            style="width:70%">
+
+                            Warning
+
+                        </div>
+
+                        {% else %}
+
+                        <div
+                            class="progress-bar bg-success"
+                            style="width:100%">
+
+                            Secure
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <strong>Attack Detection</strong>
+
+                    <div class="progress mt-2">
+
+                        <div
+                            class="progress-bar bg-info attack-detection-progress"
+                            role="progressbar"
+                            data-attack-percentage="{{ attack_percentage }}"
+                            aria-valuenow="{{ attack_percentage }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+
+                            {{ attack_percentage }}%
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Histogram -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 graph-card">
+
+            <div class="card-header">
+
+                Histogram Analysis
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/qber_histogram.png') }}"
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Security Status -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 graph-card">
+
+            <div class="card-header">
+
+                Security Distribution
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/security_status.png') }}"
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Threshold -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 graph-card">
+
+            <div class="card-header">
+
+                Threshold Analysis
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/qber_threshold.png') }}"
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow border-0 graph-card">
+
+            <div class="card-header">
+
+                Simulation Summary
+
+            </div>
+
+            <div class="card-body text-center">
+
+                <img
+                    src="{{ url_for('static', filename='images/summary_bar.png') }}"
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
