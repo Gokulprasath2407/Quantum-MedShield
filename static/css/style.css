@@ -1,0 +1,1506 @@
+/*==========================================================
+        QuantumShield MedEdge
+        Premium Cyber Security Dashboard
+        Version 2.0
+==========================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+
+    --bg:#08111f;
+    --bg2:#101b2d;
+    --card:#111d31;
+    --card2:#17243b;
+
+    --primary:#00d9ff;
+    --secondary:#00ffa3;
+    --danger:#ff4d6d;
+    --warning:#ffc107;
+    --success:#00e676;
+
+    --text:#ffffff;
+    --muted:#aeb7c2;
+
+    --border:rgba(255,255,255,.08);
+
+    --shadow:
+        0 10px 35px rgba(0,0,0,.45);
+
+    --glow:
+        0 0 8px rgba(0,217,255,.45),
+        0 0 18px rgba(0,217,255,.30);
+
+}
+
+/*==========================================================
+BODY
+==========================================================*/
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    margin:0;
+
+    padding:0;
+
+    background:
+        radial-gradient(circle at top,#143056 0%,#08111f 45%,#050b16 100%);
+
+    color:var(--text);
+
+    font-family:'Poppins',sans-serif;
+
+    overflow-x:hidden;
+
+    min-height:100vh;
+
+}
+
+/* animated background */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background-image:
+
+        radial-gradient(rgba(0,217,255,.18) 1px,transparent 1px);
+
+    background-size:35px 35px;
+
+    opacity:.25;
+
+    animation:gridMove 40s linear infinite;
+
+    pointer-events:none;
+
+}
+
+@keyframes gridMove{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(35px);
+
+    }
+
+}
+
+/*==========================================================
+NAVBAR
+==========================================================*/
+
+.navbar{
+
+    background:rgba(7,16,30,.85)!important;
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(0,217,255,.20);
+
+    box-shadow:0 2px 20px rgba(0,0,0,.45);
+
+}
+
+.navbar-brand{
+
+    color:white!important;
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+.nav-link{
+
+    color:#d8e8ff!important;
+
+    transition:.35s;
+
+}
+
+.nav-link:hover{
+
+    color:var(--primary)!important;
+
+}
+
+/*==========================================================
+HERO
+==========================================================*/
+
+.hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:55px;
+
+    border-radius:22px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(20,38,63,.95),
+            rgba(9,16,29,.95)
+        );
+
+    border:1px solid rgba(0,217,255,.18);
+
+    box-shadow:var(--shadow);
+
+}
+
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:260px;
+
+    height:260px;
+
+    background:rgba(0,217,255,.08);
+
+    border-radius:50%;
+
+    top:-80px;
+
+    right:-80px;
+
+    filter:blur(30px);
+
+}
+
+.hero h1{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    text-shadow:0 0 20px rgba(0,217,255,.45);
+
+}
+
+.hero p{
+
+    color:#d2d8e3;
+
+    font-size:1.05rem;
+
+}
+
+/*==========================================================
+COMMON CARD
+==========================================================*/
+
+.card{
+
+    background:rgba(16,27,45,.85);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:20px;
+
+    backdrop-filter:blur(14px);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+    overflow:hidden;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+
+        0 18px 35px rgba(0,0,0,.45),
+
+        var(--glow);
+
+}
+
+.card-header{
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0,217,255,.18),
+            rgba(0,255,163,.10)
+        );
+
+    border:none;
+
+    color:white;
+
+    padding:18px 24px;
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+}
+
+/*==========================================================
+METRIC CARDS
+==========================================================*/
+
+.metric-card{
+
+    position:relative;
+
+    text-align:center;
+
+}
+
+.metric-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-40%;
+
+    top:0;
+
+    width:40%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.08),
+            transparent
+        );
+
+    transform:skewX(-25deg);
+
+    transition:1s;
+
+}
+
+.metric-card:hover::before{
+
+    left:150%;
+
+}
+
+.metric-card .card-body{
+
+    padding:30px;
+
+}
+
+.metric-icon{
+
+    font-size:3rem;
+
+    color:var(--primary);
+
+    text-shadow:0 0 18px rgba(0,217,255,.50);
+
+}
+
+.display-3{
+
+    transition:.4s;
+
+}
+
+.metric-card:hover .display-3{
+
+    transform:scale(1.12);
+
+}
+
+.metric-card h2{
+
+    font-weight:700;
+
+    margin-top:12px;
+
+}
+
+.metric-card h3{
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.metric-card h6{
+
+    color:#cfd7e4;
+
+    font-weight:500;
+
+}
+
+/*==========================================================
+BUTTONS
+==========================================================*/
+
+.btn{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(135deg,#00b4ff,#0077ff);
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 0 18px rgba(0,180,255,.55);
+
+}
+
+.btn-success{
+
+    background:linear-gradient(135deg,#00d26a,#00b85c);
+
+    border:none;
+
+}
+
+.btn-success:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 0 18px rgba(0,210,106,.45);
+
+}
+
+/*==========================================================
+FORM
+==========================================================*/
+
+.form-control{
+
+    background:#0d1626;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:12px;
+
+}
+
+.form-control:focus{
+
+    background:#0d1626;
+
+    color:white;
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 12px rgba(0,217,255,.35);
+
+}
+
+.form-label{
+
+     color:#ffffff;
+
+    font-weight:500;
+
+}
+
+.form-check-input{
+
+    background:#101b2d;
+
+    border-color:#3b4a63;
+
+}
+
+.form-check-input:checked{
+
+    background-color:var(--primary);
+
+    border-color:var(--primary);
+
+}
+/*==========================================================
+QUANTUM COMMUNICATION FLOW
+==========================================================*/
+
+.quantum-flow-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.quantum-flow-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(0,217,255,.05),
+        transparent 70%);
+
+    pointer-events:none;
+
+}
+
+.quantum-node{
+
+    position:relative;
+
+    padding:35px 20px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(21,35,58,.95),
+            rgba(10,18,30,.95)
+        );
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s;
+
+    overflow:hidden;
+
+}
+
+.quantum-node:hover{
+
+    transform:translateY(-10px) scale(1.03);
+
+}
+
+.quantum-node i{
+
+    transition:.4s;
+
+}
+
+.quantum-node:hover i{
+
+    transform:scale(1.18);
+
+}
+.quantum-node h5{
+
+    color:white !important;
+
+}
+
+.quantum-channel h6{
+
+    color:white !important;
+
+}
+
+.quantum-node{
+
+    color:white;
+
+}
+
+/*==========================================================
+ALICE
+==========================================================*/
+
+.alice-node{
+
+    border:1px solid rgba(0,255,163,.45);
+
+    box-shadow:
+
+        0 0 15px rgba(0,255,163,.35);
+
+}
+
+.alice-node i{
+
+    color:var(--success);
+
+    text-shadow:
+
+        0 0 15px rgba(0,255,163,.65);
+
+}
+
+.alice-node::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    top:20px;
+
+    right:20px;
+
+    animation:pulseGreen 2s infinite;
+
+}
+
+@keyframes pulseGreen{
+
+    0%{
+
+        transform:scale(.7);
+
+        opacity:.7;
+
+    }
+
+    70%{
+
+        transform:scale(1.8);
+
+        opacity:0;
+
+    }
+
+    100%{
+
+        opacity:0;
+
+    }
+
+}
+
+/*==========================================================
+EVE
+==========================================================*/
+
+.eve-node{
+
+    border:1px solid rgba(255,77,109,.45);
+
+    box-shadow:
+
+        0 0 18px rgba(255,77,109,.35);
+
+}
+
+.eve-node i{
+
+    color:var(--danger);
+
+    text-shadow:
+
+        0 0 15px rgba(255,77,109,.65);
+
+}
+
+.eve-node::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:18px;
+
+    border:2px solid rgba(255,77,109,.25);
+
+    animation:evePulse 2.5s infinite;
+
+}
+
+@keyframes evePulse{
+
+    0%{
+
+        transform:scale(.96);
+
+        opacity:0;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:scale(1.05);
+
+        opacity:0;
+
+    }
+
+}
+
+/*==========================================================
+BOB
+==========================================================*/
+
+.bob-node{
+
+    border:1px solid rgba(0,217,255,.45);
+
+    box-shadow:
+
+        0 0 18px rgba(0,217,255,.35);
+
+}
+
+.bob-node i{
+
+    color:var(--primary);
+
+    text-shadow:
+
+        0 0 18px rgba(0,217,255,.65);
+
+}
+
+.bob-node::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    top:20px;
+
+    right:20px;
+
+    animation:pulseBlue 2s infinite;
+
+}
+
+@keyframes pulseBlue{
+
+    0%{
+
+        transform:scale(.7);
+
+        opacity:.7;
+
+    }
+
+    70%{
+
+        transform:scale(1.8);
+
+        opacity:0;
+
+    }
+
+    100%{
+
+        opacity:0;
+
+    }
+
+}
+
+/*==========================================================
+CHANNEL
+==========================================================*/
+
+.quantum-channel{
+
+    padding-top:35px;
+
+}
+
+.flow-line{
+
+    position:relative;
+
+    height:8px;
+
+    width:100%;
+
+    border-radius:20px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #00ffa3,
+            #00d9ff,
+            #00ffa3
+        );
+
+    overflow:hidden;
+
+    box-shadow:
+
+        0 0 15px rgba(0,217,255,.45);
+
+}
+
+.flow-dot{
+
+    position:absolute;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    background:white;
+
+    top:-5px;
+
+    left:-20px;
+
+    box-shadow:
+
+        0 0 15px white;
+
+    animation:photonMove 2s linear infinite;
+
+}
+
+@keyframes photonMove{
+
+    from{
+
+        left:-20px;
+
+    }
+
+    to{
+
+        left:100%;
+
+    }
+
+}
+
+/*==========================================================
+BADGES
+==========================================================*/
+
+.badge{
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+}
+
+/*==========================================================
+AI THREAT ASSESSMENT
+==========================================================*/
+
+.alert{
+
+    border:none;
+
+    border-radius:18px;
+
+    backdrop-filter:blur(15px);
+
+}
+
+.alert-success{
+
+    background:rgba(0,230,118,.12);
+
+    color:#d9ffe8;
+
+}
+
+.alert-danger{
+
+    background:rgba(255,77,109,.12);
+
+    color:#ffdce2;
+
+}
+
+.alert-warning{
+
+    background:rgba(255,193,7,.15);
+
+    color:#fff2c6;
+
+}
+
+/*==========================================================
+TABLE
+==========================================================*/
+
+.table{
+
+    color:white !important;
+
+    background:transparent;
+
+}
+
+.table th{
+
+    color:#8fdcff !important;
+
+    background:#162238 !important;
+
+    border-color:rgba(255,255,255,.08);
+
+}
+
+.table td{
+
+    color:white !important;
+
+    background:#111d31 !important;
+
+    border-color:rgba(255,255,255,.08);
+
+}
+
+.table-striped>tbody>tr:nth-of-type(odd){
+
+    background:#162238 !important;
+
+}
+
+.table-striped>tbody>tr:nth-of-type(even){
+
+    background:#111d31 !important;
+
+}
+
+/*==========================================================
+GRAPH CARDS
+==========================================================*/
+
+.graph-card{
+
+    transition:.4s;
+
+}
+
+.graph-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.graph-card img{
+
+    border-radius:15px;
+
+    transition:.4s;
+
+}
+
+.graph-card img:hover{
+
+    transform:scale(1.02);
+
+}
+
+/*==========================================================
+PROGRESS BAR
+==========================================================*/
+
+.progress{
+
+    height:14px;
+
+    background:#162238;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    font-weight:600;
+
+    transition:width 1.5s ease;
+
+    border-radius:30px;
+
+}
+
+.attack-detection-progress{
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #00b4ff,
+            #00e5ff
+        );
+
+}
+/*==========================================================
+SPINNER
+==========================================================*/
+
+.spinner-border{
+
+    color:var(--primary);
+
+}
+
+#runBtn{
+
+    transition:.35s;
+
+    font-weight:600;
+
+}
+
+#runBtn:disabled{
+
+    opacity:.85;
+
+    cursor:not-allowed;
+
+}
+
+/*==========================================================
+IMAGES
+==========================================================*/
+
+img{
+
+    max-width:100%;
+
+}
+
+.img-fluid{
+
+    border-radius:15px;
+
+}
+
+.graph-card img{
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+
+}
+
+/*==========================================================
+FLOATING ANIMATION
+==========================================================*/
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+.metric-card{
+
+    animation:floating 5s ease-in-out infinite;
+
+}
+
+.metric-card:nth-child(2){
+
+    animation-delay:.4s;
+
+}
+
+.metric-card:nth-child(3){
+
+    animation-delay:.8s;
+
+}
+
+.metric-card:nth-child(4){
+
+    animation-delay:1.2s;
+
+}
+
+/*==========================================================
+GLOW EFFECTS
+==========================================================*/
+
+.text-success{
+
+    text-shadow:0 0 10px rgba(0,230,118,.45);
+
+}
+
+.text-danger{
+
+    text-shadow:0 0 10px rgba(255,77,109,.45);
+
+}
+
+.text-warning{
+
+    text-shadow:0 0 10px rgba(255,193,7,.45);
+
+}
+
+.text-primary{
+
+    text-shadow:0 0 10px rgba(0,217,255,.45);
+
+}
+
+/*==========================================================
+HEADINGS
+==========================================================*/
+
+h1,h2,h3,h4,h5,h6{
+
+    font-weight:700;
+
+}
+
+.lead{
+
+    color:#dbe8f5;
+
+}
+
+/*==========================================================
+LINKS
+==========================================================*/
+
+a{
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+a:hover{
+
+    color:var(--primary);
+
+}
+
+/*==========================================================
+HORIZONTAL RULE
+==========================================================*/
+
+hr{
+
+    border-color:rgba(255,255,255,.08);
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+footer{
+
+    margin-top:60px;
+
+    background:#07111d;
+
+    border-top:1px solid rgba(0,217,255,.15);
+
+    color:#94a3b8;
+
+    padding:25px;
+
+    text-align:center;
+
+}
+
+/*==========================================================
+SCROLLBAR
+==========================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#09121f;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#1d4f88;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#00b4ff;
+
+}
+
+/*==========================================================
+SELECTION
+==========================================================*/
+
+::selection{
+
+    background:#00b4ff;
+
+    color:white;
+
+}
+
+/*==========================================================
+ANIMATION UTILITIES
+==========================================================*/
+
+.fade-up{
+
+    animation:fadeUp .8s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.zoom-in{
+
+    animation:zoomIn .6s ease;
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.95);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media (max-width:1200px){
+
+    .hero{
+
+        padding:45px;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    .hero{
+
+        text-align:center;
+
+    }
+
+    .hero h1{
+
+        font-size:2.4rem;
+
+    }
+
+    .quantum-node{
+
+        margin-bottom:25px;
+
+    }
+
+    .flow-line{
+
+        margin-bottom:20px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .hero{
+
+        padding:35px 25px;
+
+    }
+
+    .hero h1{
+
+        font-size:2rem;
+
+    }
+
+    .metric-card{
+        color:#dfe9f8;
+        margin-bottom:20px;
+
+    }
+
+    .card-header{
+
+        text-align:center;
+
+    }
+
+    .table{
+
+        font-size:.9rem;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .hero{
+
+        padding:25px 18px;
+
+    }
+
+    .hero h1{
+
+        font-size:1.7rem;
+
+    }
+
+    .hero p{
+        color:#e5edf7;
+
+        font-size:.95rem;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+        margin-top:8px;
+
+    }
+
+    .graph-card img{
+
+        border-radius:10px;
+
+    }
+
+}
+
+/*==========================================================
+UTILITY CLASSES
+==========================================================*/
+
+.shadow-soft{
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,.30);
+
+}
+
+.border-glow{
+
+    border:1px solid rgba(0,217,255,.25);
+
+}
+
+.glass{
+
+    background:rgba(17,29,49,.78);
+
+    backdrop-filter:blur(18px);
+
+}
+
+.rounded-xl{
+
+    border-radius:22px;
+
+}
+
+.transition{
+
+    transition:.35s;
+
+}
+/* ==========================================
+   Force White Text
+========================================== */
+
+.card,
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card h5,
+.card h6,
+.card p,
+.card span,
+.card label,
+.card strong,
+.card th,
+.card td{
+
+    color:#ffffff !important;
+
+}
+
+.quantum-node h5{
+
+    color:#ffffff !important;
+
+}
+
+.quantum-channel h6{
+
+    color:#ffffff !important;
+
+}
+
+.form-label{
+
+    color:#ffffff !important;
+
+}
+
+.table{
+
+    color:#ffffff !important;
+
+}
+
+.table th{
+
+    color:#7fd8ff !important;
+
+}
+
+.table td{
+
+    color:#ffffff !important;
+
+}
+
+/*==========================================================
+END OF FILE
+==========================================================*/
